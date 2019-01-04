@@ -102,3 +102,5 @@ derby.log
 ######################
 
 .factorypath
+.gradle/
+.tern-project
