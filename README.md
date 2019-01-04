@@ -3,7 +3,7 @@ This repository contains an online auctions system.</br>
 The system is built following the web browser/REST server architecture.
 The architecture is presented in the following figure:
 
-![System architectur](/architecture.png)
+<img src="/architecture.png" width="350">
 
 A MySQL database was used as a <b>persistence storage</b>.
 The back-end is developed in Java. </br>
@@ -26,7 +26,7 @@ In the sample data, all users have the password "123456", some of the usernames 
 
 1. Copy the folder /back-end/auctions-photos in the root folder of your machine.
 
-2. Build the project in /back-end/auctions-source by running the command "gradle clean build". A .war file will be created in the directory /back-end/online-auctions⁩/⁨back-end⁩/auctions-source⁩/build⁩/⁨libs⁩.
+2. Build the project in /back-end/auctions-source by running the command "gradle clean build". A .war file will be created in the directory /back-end⁩/auctions-source⁩/build⁩/⁨libs⁩.
 Copy this file into the webapps directory of your Apache Tomcat Server (the project has been tested in Apache Tomcat 8).
 
 <h4> Client </h4>
