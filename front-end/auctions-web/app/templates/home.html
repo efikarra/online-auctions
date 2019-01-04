@@ -1,0 +1,43 @@
+
+<div class="row" style="height:100%">
+
+<div  class="col-lg-3">
+<div ng-show="isAuthenticated ">
+<h4>Bid for these items too!</h4>
+<ul class="media-list">
+			<li style="background-color: #FFFFCC" class="media"
+				ng-repeat="item in recommendedItems">
+				<div class="media-left">
+
+					<!-- <div class="small-image-container">
+						<img
+							ng-src="http://localhost:8080/auctions/items/{{item.itemId}}/photos/{{item.photos[0].photoId}}"
+							alt="img/no-image.png" class="media-object img-responsive" />
+					</div> -->
+
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading"><a href="#/auctions-web/items/item/{{item.itemId}}">{{item.name}}</a> </h4>
+					<br>
+					
+						<br>
+						<br>
+					<p>{{ item.description | limitTo: 80 }}{{item.description.length > 80? '...' : ''}}</p>
+				
+				<p><strong>Best bid: {{item.currently}} EURO</strong>  </p>
+						<br>
+					<!-- <timer max-time-unit="'day'" ng-attr-end-time="item.ends">
+					<span style="color: red">{{days}}d,{{hours}}h, {{minutes}}m,
+						{{seconds}}s left.</span></timer> -->
+				</div>
+			</li>
+
+		</ul>
+		</div>
+	</div>
+
+	<div class="col-lg-9">
+<div ui-view="search"></div>
+	</div>
+	
+	</div>

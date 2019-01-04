@@ -1,0 +1,218 @@
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<form name="itemForm" novalidate class="center-block"
+				ng-submit="itemForm.$valid&&saveItem()">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group has-feedback">
+							<label class="control-label" for="name">Name</label> <input
+								type="text" name="name" class="form-control"
+								ng-model="newItem.name" id="name" required ng-maxlength="50">
+						</div>
+						<div ng-messages="itemForm.name.$error" class="form-errors"
+							ng-if="itemForm.name.$touched">
+							<div class="form-error" ng-message="required">Please enter
+								item's name</div>
+							<div class="form-error" ng-message="maxlength">Name should
+								be at most 45 characters</div>
+							<div ng-messages-include="templates/messages.html"></div>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="form-group has-feedback">
+							<textarea id="description" name="description"
+								style="width: 300px" placeholder="Description"
+								ng-model="newItem.description" required>
+                    </textarea>
+						</div>
+						<div ng-messages="itemForm.description.$error" class="form-errors"
+							ng-if="itemForm.description.$touched">
+							<div class="form-error" ng-message="required">Please enter
+								item's description</div>
+							<div ng-messages-include="templates/messages.html"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="form-group has-feedback">
+							<label>Buy price</label> <input type="number" step="0.01"
+								name="buyPrice" class="form-control" ng-model="newItem.buyPrice"
+								id="buyPrice">
+						</div>
+						<div ng-messages="itemForm.buyPrice.$error" class="form-errors"
+							ng-show="itemForm.buyPrice.$touched">
+							<div ng-messages-include="templates/messages.html"></div>
+						</div>
+					</div>
+
+					<div class="col-lg-4">
+						<div class="form-group has-feedback">
+							<label>First bid</label> <input type="number" step="0.01"
+								name="firstBid" class="form-control" ng-model="newItem.firstBid"
+								id="firstBid" required>
+						</div>
+						<div ng-messages="itemForm.firstBid.$error" class="form-errors"
+							ng-show="itemForm.firstBid.$touched">
+							<div ng-messages-include="templates/messages.html"></div>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<br>
+						<div ng-controller="CategoriesListCtrl">
+							<accordion> <accordion-group is-open="status1.open">
+							<accordion-heading> Select categories <i
+								class="pull-right glyphicon"
+								ng-class="{'glyphicon-chevron-down': status1.open, 'glyphicon-chevron-right': !status1.open}"></i>
+							</accordion-heading>
+							<div class="checkbox">
+								<div ng-repeat="category in categories">
+									<label> <input type="checkbox"
+										checklist-model="$parent.newItem.categories"
+										checklist-value="category" checklist-comparator="compareFn">{{category.categoryName}}
+									</label>
+								</div>
+							</div>
+
+							</accordion-group> </accordion>
+						</div>
+					</div>
+				</div>
+				<div ng-controller="DateTimePickersCtrl">
+					<div class="row">
+						<div class="col-lg-4">
+							<h5>Choose auction start date and time</h5>
+							<p class="input-group">
+								<input type="date" class="form-control" datepicker-popup
+									ng-model="$parent.startedDate" is-open="status.startedOpened"
+									min-date="minDate" max-date="maxDate" min="minDate" 
+									datepicker-options="dateOptions" ng-required="true"
+									close-text="Close" id="startedDate" name="startedDate" /> <span
+									class="input-group-btn">
+									<button type="button" class="btn btn-default"
+										ng-click="openStarted($event)">
+										<i class="glyphicon glyphicon-calendar"></i>
+									</button>
+								</span>
+							</p>
+							<div ng-messages="itemForm.startedDate.$error"
+								class="form-errors" ng-if="itemForm.startedDate.$touched">
+								<div class="form-error" ng-message="required">Auction's
+									start date is required</div>
+								<div ng-messages-include="templates/messages.html"></div>
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<timepicker id="startedTime" name="startedTime"
+								ng-model="$parent.startedTime" hour-step="1" minute-step="1"
+								ng-required="true" show-meridian="false"></timepicker>
+						</div>
+						<div class="col-lg-4">
+							<h5>Choose auction end date and time</h5>
+							<p class="input-group">
+								<input type="date" class="form-control" datepicker-popup
+									ng-model="$parent.endsDate" is-open="status.endsOpened"
+									min-date="minEndDate" max-date="maxDate" min="minEndDate" max="maxDate"
+									datepicker-options="dateOptions" ng-required="true"
+									close-text="Close" id="endsDate" name="endsDate" /> <span
+									class="input-group-btn">
+									<button type="button" class="btn btn-default"
+										ng-click="openEnds($event)">
+										<i class="glyphicon glyphicon-calendar"></i>
+									</button>
+								</span>
+							</p>
+							<div ng-messages="itemForm.endsDate.$error" class="form-errors"
+								ng-if="itemForm.endsDate.$touched">
+								<div class="form-error" ng-message="required">Auction's
+									end date is required</div>
+								<div ng-messages-include="templates/messages.html"></div>
+							</div>
+							<div ng-show="illegalDateTime">
+							<div class="form-error">End date should be after auction's start date</div>
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<timepicker ng-model="$parent.endsTime" show-meridian="false"
+								hour-step="1" minute-step="1" required></timepicker>
+						</div>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-2"></div>
+					<div ng-controller="MapCtrl">
+						<div class="col-lg-5">
+
+							Click map to choose auction's country and location (mandatory) <br>
+							<div id="map" class="my-map" data-tap-disabled="true"></div>
+						</div>
+
+						<div class="col-lg-4">
+							<div id="radio" ng-repeat="result in results">
+								<label> <input type="radio" ng-model="choice.location"
+									ng-value="result.location" ng-change='newLocation(value)'
+									>{{result.country}} {{result.location}}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-1">
+					<br>
+						<div ng-show="locationSelected" class="checkbox">
+							<label> <input type="checkbox" ng-model="includeCoords">Include
+								coordinates (optional)
+							</label>
+
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+					<br>
+						<div flow-init="{singleFile:false}" flow-name="obj.flow"
+							flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]">
+							<h3>Upload item's photos (optional)</h3>
+							<div class="thumbnails" ng-show="!obj.flow.files.length">
+								<img src="img/no-image.png" />
+							</div>
+							<div class="thumbnail" ng-show="obj.flow.files.length">
+								<span ng-repeat="file in obj.flow.files"> <img
+									flow-img="file" />
+									<div class="caption">
+										<button class="btn btn-xs btn-danger" ng-click="file.cancel()">
+											Cancel</button>
+									</div>
+								</span>
+							</div>
+							<div>
+							<br>
+								<span style="float: none" class="btn btn-primary" flow-btn>Select
+									image</span> <span class="btn  btn-danger"
+									ng-show="obj.flow.files.length" ng-click="obj.flow.cancel()">
+									Remove All</span>
+							</div>
+							<p>Only PNG,GIF,JPG,JEPG files allowed.</p>
+							<br>
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="row">
+					<div class="col-lg-6">
+					<br>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary"
+								ng-disabled="!itemForm.$valid || !locationSelected || illegalDateTime">Submit</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</div>

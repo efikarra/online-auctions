@@ -1,0 +1,26 @@
+<form id="loginForm" class="center-block" ng-submit="login()">
+	<div class="row">
+		<div class="col-lg-8">
+			<div class="form-group">
+				<label for="username">Username</label>
+				  <input type="text" class="form-control"  placeholder="Username" ng-model="loginData.username">
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-8">
+			<div class="form-group">
+				<label for="password">Password</label>
+					 <input class="form-control" type="password" placeholder="Password" ng-model="loginData.password">
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-lg-8">
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary btn-block">Login</button>
+			</div>
+		</div>
+	</div>
+</form>

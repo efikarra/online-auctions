@@ -1,0 +1,38 @@
+<div class="row">
+	<div class="col-lg-8">
+		<div class="input-group">
+			<input type="text" class="form-control" aria-label="..."
+				placeholder="Search..." ng-model="keyword">
+			<span class="input-group-btn" >
+				<select style="background-color:#FFFFF5;width:150px" class="btn" ng-model="selectedCategory" ng-options="c.categoryName for c in categories">
+					<option></option>
+				</select>
+			</span>
+		</div>
+	</div>
+	<div class="col-lg-2 ">
+				<button popover-template="dynamicPopover.templateUrl"
+			popover-title="{{dynamicPopover.title}}" popover-placement="bottom" type="button"
+			ng-click="advancedSearch()" class="btn btn-danger roffset2" >Advanced
+			<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+			</button>
+
+	</div>
+	<div class="col-lg-2 text-left">
+
+			<button id="searchBtn" type="button" class="btn btn-primary"
+			ng-click="search()" ng-disabled="!enabledSearch">
+			<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+			Go
+		</button>
+	</div>
+</div>
+<br>
+<br>
+<br>
+<div class="row">
+	<div class="col-lg-8">
+		<div ui-view="search-results"></div>
+	</div>
+	<div class="col-lg-4"></div>
+</div>

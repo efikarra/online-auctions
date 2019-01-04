@@ -1,0 +1,12 @@
+
+<ul class="list-group">
+	<a  ng-show="typeOfAuction=='active'" href="#/auctions-web/user-account/items/active/{{item.itemId}}" class="list-group-item" ng-repeat="item in items">
+	{{item.name}} 
+	</a>
+	<a  ng-show="typeOfAuction=='inActive'" href="#/auctions-web/user-account/items/inActive/{{item.itemId}}" class="list-group-item" ng-repeat="item in items">
+	{{item.name}} 
+	</a>
+	<a  ng-show="typeOfAuction=='ended'" href="#/auctions-web/user-account/items/ended/{{item.itemId}}" class="list-group-item" ng-repeat="item in items">
+	{{item.name}} 
+	</a>
+</ul>

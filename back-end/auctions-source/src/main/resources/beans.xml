@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	                        http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+	                        http://www.springframework.org/schema/context 
+	                        http://www.springframework.org/schema/context/spring-context-4.1.xsd
+	                        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+	<context:annotation-config />
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:properties/database.properties</value>
+		</property>
+	</bean>
+	<bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="classesToBeBound">
+			<list>
+				<value>app.auctions.jaxb.BidderJaxb</value>
+				<value>app.auctions.jaxb.SellerJaxb</value>
+				<value>app.auctions.jaxb.LocationJaxb</value>
+				<value>app.auctions.jaxb.ItemsList</value>
+				<value>app.auctions.dto.CategoryDTO</value>
+				<value>app.auctions.dto.LocationDTO</value>
+				<value>app.auctions.jaxb.ItemJaxb</value>
+			</list>
+		</property>
+
+	</bean>
+
+	<!-- dataSource beans -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- <property name="batch-size" value="${jdbc.batch_size"/> -->
+	</bean>
+
+	<!-- Hibernate session factory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="packagesToScan">
+			<list>
+				<value>app.auctions.model</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Transaction Management -->
+	<tx:annotation-driven transaction-manager="txManager" />
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- Dao beans -->
+	<bean id="itemDao" class="app.auctions.dao.ItemDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="userDao" class="app.auctions.dao.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="categoryDao" class="app.auctions.dao.CategoryDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="roleDao" class="app.auctions.dao.RoleDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="photoDao" class="app.auctions.dao.PhotoDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="bidDao" class="app.auctions.dao.BidDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="messageDao" class="app.auctions.dao.MessageDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="recommendationDao" class="app.auctions.dao.RecommendationDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<!-- Service beans -->
+	<bean id="recommendationService" class="app.auctions.service.RecommendationServiceImpl">
+		<property name="recommendationDao" ref="recommendationDao" />
+	</bean>
+	<bean id="itemService" class="app.auctions.service.ItemServiceImpl">
+		<property name="itemDao" ref="itemDao" />
+	</bean>
+	<bean id="messageService" class="app.auctions.service.MessageServiceImpl">
+		<property name="messageDao" ref="messageDao" />
+	</bean>
+
+	<bean id="userService" class="app.auctions.service.UserServiceImpl">
+		<property name="userDao" ref="userDao" />
+	</bean>
+
+	<bean id="roleService" class="app.auctions.service.RoleServiceImpl">
+		<property name="roleDao" ref="roleDao" />
+	</bean>
+	<bean id="photoService" class="app.auctions.service.PhotoServiceImpl">
+		<property name="photoDao" ref="photoDao" />
+	</bean>
+	<bean id="categoryService" class="app.auctions.service.CategoryServiceImpl">
+		<property name="categoryDao" ref="categoryDao" />
+	</bean>
+
+	<bean id="bidService" class="app.auctions.service.BidServiceImpl">
+		<property name="bidDao" ref="bidDao" />
+	</bean>
+	<bean id="hibernateMapperFactory" factory-bean="builder"
+		factory-method="build" class="app.auctions.dto.utils.HibernateMapperFactory">
+	</bean>
+	<bean id="builder" class="app.auctions.dto.utils.HibernateMapperFactory.Builder">
+	</bean>
+</beans>

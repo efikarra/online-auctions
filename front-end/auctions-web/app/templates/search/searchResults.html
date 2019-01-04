@@ -1,0 +1,34 @@
+<div ng-show="searchDone">
+	<table class="table">
+
+		<ul class="media-list">
+			<li style="background-color: #FFFFFF" class="media"
+				ng-repeat="item in items.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+				<div class="media-left">
+
+					<div class="image-container">
+						<img
+							ng-src="http://localhost:8080/auctions/items/{{item.itemId}}/photos/{{item.photos[0].photoId}}"
+							alt="No image available" class="media-object img-responsive" />
+					</div>
+
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading"><a href="#/auctions-web/items/item/{{item.itemId}}">{{item.name}}</a> <span class="pull-right"><strong>Price: {{item.buyPrice}}</strong></span></h4>
+						<br>
+					<p>{{ item.description | limitTo: 200 }}{{item.description.length > 200? '.......' : ''}} </p>
+				
+				<p><strong>Best bid: {{item.currently}} EUROs</strong>  </p>
+						<br>
+					<timer max-time-unit="'day'" ng-attr-end-time="item.ends">
+					<span style="color: red">{{days}}d,{{hours}}h, {{minutes}}m,
+						{{seconds}}s left.</span></timer>
+				</div>
+			</li>
+
+		</ul>
+
+		<pagination total-items="totalItems" ng-model="currentPage"
+			items-per-page="itemsPerPage" max-size="maxSize"
+			ng-change="pageChanged()"></pagination>
+		</div>

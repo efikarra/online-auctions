@@ -1,0 +1,7 @@
+<ul class="list-group">
+	<li class="list-group-item" ng-repeat="bid in bids" ng-class-odd="'odd-blue'">
+		<h5 class="list-group-item-heading">Item: {{bid.item.name}}</h5>
+		<p>Amount: {{bid.amount}}<span class="pull-right">Date: {{bid.time | date:'yyyy-MM-dd HH:mm:ss'}}</span></p>
+		<p>Bidder: {{bid.bidder.username}}</p>
+	</li>
+</ul>

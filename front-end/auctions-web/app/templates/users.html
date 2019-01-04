@@ -1,0 +1,20 @@
+<div class="row">
+<div class="col-lg-6">
+<br>
+<div class="panel panel-success">
+<div class="panel-heading">Users</div>
+  <div class="panel-body">
+<div class="list-group">
+  <a href="#/auctions-web/admin/users/{{u.userId}}" class="list-group-item" ng-repeat="u in users">
+    {{u.firstname}} {{u.lastname}}
+  </a>
+</div>
+</div>
+</div>
+</div>
+<div class="col-lg-6">
+
+<div ui-view="user-details"></div>
+
+</div>
+</div>

@@ -1,0 +1,75 @@
+
+<nav class="navbar navbar-default ">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a ng-if="role=='ROLE_USER'||!role" class="navbar-brand" href="#/auctions-web/home/search"> <img alt="Hermes"
+				src="" />
+			</a>
+			<a ng-if="role=='ROLE_ADMIN'" class="navbar-brand" href="#/auctions-web/admin"> <img alt="Hermes"
+				src="" />
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li ng-if="role=='ROLE_USER'||!role" class="active"><a href="#/auctions-web/newItem">New auction <span class="sr-only">(current)</span></a></li>
+				<li ng-if="role=='ROLE_ADMIN'" class="active"><a href="#/auctions-web/admin/users">Users <span class="sr-only">(current)</span></a></li>
+				<li ng-if="role=='ROLE_ADMIN'"><a href="http://localhost:8080/auctions/items/xml">Export xml<span class="sr-only">(current)</span></a></li>
+				<li ng-if="role=='ROLE_USER'||!role" class="dropdown"><a href class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-expanded="false">Your account
+						<span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a ui-sref="main.accountMenu">Auctions</a></li>
+						<li><a ui-sref="main.accountMenu.bids.active">Bids</a></li>
+						<li><a ui-sref="main.messagesMenu.messages({typeOfMessages:'inbox'})">Messages</a></li>
+					</ul></li>
+			</ul>
+			<!-- 	<form class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search">
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>  -->
+
+			<ul class="nav navbar-nav navbar-right">
+			<li ng-show="isAuthenticated">
+			<div class="pull-left">
+					Hello {{username}}</div>
+				</li>
+				<li ng-show="!isAuthenticated">
+					<button type="button" class="btn btn-default navbar-btn"
+						ng-click="goToLogin()">
+						<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp
+						Sign in
+					</button>
+				</li>
+				<li ng-show="!isAuthenticated">
+					<button type="button" class="btn btn-default navbar-btn"
+						ng-click="goToRegister()">
+						<span class="glyphicon glyphicon-registration-mark"
+							aria-hidden="true"></span>&nbsp Register
+					</button>
+				</li>
+				<li ng-show="isAuthenticated">
+					<button ng-click="logout()" type="button"
+						class="btn btn-default navbar-btn">
+						<span class="glyphicon glyphicon glyphicon-log-out"
+							aria-hidden="true"></span>&nbsp Logout
+					</button>
+				</li>
+			</ul>
+		</div>
+		<!-- /.navbar-collapse -->
+	</div>
+	<!-- /.container-fluid -->
+</nav>

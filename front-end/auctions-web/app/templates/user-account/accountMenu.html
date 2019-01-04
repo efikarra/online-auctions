@@ -1,0 +1,38 @@
+
+<accordion>
+ <accordion-group
+	is-open="status1.open">
+	 <accordion-heading>
+       Actions <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status1.open, 'glyphicon-chevron-right': !status1.open}"></i>
+      </accordion-heading>
+<ul class="list-group">
+	<a href="#/auctions-web/user-account/items/active"
+		style="background-color: #CCEBD6" class="list-group-item"> <span
+		style="color: #000000">Active</span>
+	</a>
+	<a href="#/auctions-web/user-account/items/inActive" style="background-color:#FFEBE6"
+		class="list-group-item"> <span style="color: #000000">Inactive 
+	</span>
+	</a>
+	<a href="#/auctions-web/user-account/items/ended"
+		style="background-color: #FFFFE0" class="list-group-item"> <span
+		style="color: #000000">Ended</span>
+	</a>
+</ul>
+</accordion-group>
+<accordion-group
+	 is-open="status2.open">
+	 <accordion-heading>
+       Bids <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status2.open, 'glyphicon-chevron-right': !status2.open}"></i>
+      </accordion-heading>
+<ul class="list-group">
+	<a ui-sref="main.accountMenu.bids.active"
+		style="background-color: #80B2FF" class="list-group-item"> <span
+		style="color: #FFFFFF">Active Bids</span>
+</a>
+<a ui-sref="main.accountMenu.bids.inActive"
+		style="background-color: #FFFFE0" class="list-group-item"> <span
+		style="color: #000000">Ended Bids</span>
+</a>
+</ul>
+</accordion-group> </accordion>

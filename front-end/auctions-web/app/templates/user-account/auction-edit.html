@@ -1,0 +1,179 @@
+
+			<form name="editItemForm" novalidate class="center-block"
+				ng-submit="editItemForm.$valid&&updateItem()">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group has-feedback">
+							<label class="control-label" for="name">Name</label> <input
+								type="text" name="name" class="form-control"
+								ng-model="editItem.name" id="name" required ng-maxlength="50">
+						</div>
+						<div ng-messages="editItemForm.name.$error" class="form-errors"
+							ng-if="editItemForm.name.$touched">
+							<div class="form-error" ng-message="required">Please enter
+								item's name</div>
+							<div class="form-error" ng-message="maxlength">Name should
+								be at most 45 characters</div>
+							<div ng-messages-include="templates/messages.html"></div>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="form-group has-feedback">
+							<textarea id="description" name="description"
+								style="width: 300px" placeholder="Description"
+								ng-model="editItem.description" required>
+                    </textarea>
+						</div>
+						<div ng-messages="editItemForm.description.$error" class="form-errors"
+							ng-if="editItemForm.description.$touched">
+							<div class="form-error" ng-message="required">Please enter
+								item's description</div>
+							<div ng-messages-include="templates/messages.html"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="form-group has-feedback">
+							<label>Buy price</label> <input type="number" step="0.01"
+								name="buyPrice" class="form-control" ng-model="editItem.buyPrice"
+								id="buyPrice">
+						</div>
+						<div ng-messages="editItemForm.buyPrice.$error" class="form-errors"
+							ng-show="editItemForm.buyPrice.$touched">
+							<div ng-messages-include="templates/messages.html"></div>
+						</div>
+					</div>
+
+					<div class="col-lg-4">
+						<div class="form-group has-feedback">
+							<label>First bid</label> <input type="number" step="0.01"
+								name="firstBid" class="form-control" ng-model="editItem.firstBid"
+								id="firstBid" required>
+						</div>
+						<div ng-messages="editItemForm.firstBid.$error" class="form-errors"
+							ng-show="editItemForm.firstBid.$touched">
+							<div ng-messages-include="templates/messages.html"></div>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<br>
+						<div ng-controller="CategoriesListCtrl">
+							<accordion> <accordion-group is-open="status1.open">
+							<accordion-heading> Select categories <i
+								class="pull-right glyphicon"
+								ng-class="{'glyphicon-chevron-down': status1.open, 'glyphicon-chevron-right': !status1.open}"></i>
+							</accordion-heading>
+							<div class="checkbox">
+								<div ng-repeat="category in categories">
+									<label> <input type="checkbox"
+										checklist-model="$parent.editItem.categories"
+										checklist-value="category" checklist-comparator="compareFn">{{category.categoryName}}
+									</label>
+								</div>
+							</div>
+
+							</accordion-group> </accordion>
+						</div>
+					</div>
+				</div>
+				<div ng-controller="DateTimePickersCtrl">
+					<div class="row">
+						<div class="col-lg-4">
+							<h5>Choose auction start date and time</h5>
+							<p class="input-group">
+								<input type="date" class="form-control" datepicker-popup
+									ng-model="$parent.startedDate" is-open="status.startedOpened"
+									min-date="$parent.minDate" min="$parent.minDate" 
+									datepicker-options="dateOptions" ng-required="true"
+									close-text="Close" id="startedDate" name="startedDate" /> <span
+									class="input-group-btn">
+									<button type="button" class="btn btn-default"
+										ng-click="openStarted($event)">
+										<i class="glyphicon glyphicon-calendar"></i>
+									</button>
+								</span>
+							</p>
+							<div ng-messages="editItemForm.startedDate.$error"
+								class="form-errors" ng-if="editItemForm.startedDate.$touched">
+								<div class="form-error" ng-message="required">Auction's
+									start date is required</div>
+								<div ng-messages-include="templates/messages.html"></div>
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<timepicker id="startedTime" name="startedTime"
+								ng-model="$parent.startedTime" hour-step="1" minute-step="1"
+								ng-required="true" show-meridian="false"></timepicker>
+						</div>
+						<div class="col-lg-4">
+							<h5>Choose auction end date and time</h5>
+							<p class="input-group">
+								<input type="date" class="form-control" datepicker-popup
+									ng-model="$parent.endsDate" is-open="status.endsOpened"
+									min-date="minEndDate" min="minEndDate"
+									datepicker-options="dateOptions" ng-required="true"
+									close-text="Close" id="endsDate" name="endsDate" /> <span
+									class="input-group-btn">
+									<button type="button" class="btn btn-default"
+										ng-click="openEnds($event)">
+										<i class="glyphicon glyphicon-calendar"></i>
+									</button>
+								</span>
+							</p>
+							<div ng-messages="editItemForm.endsDate.$error" class="form-errors"
+								ng-if="editItemForm.endsDate.$touched">
+								<div class="form-error" ng-message="required">Auction's
+									end date is required</div>
+								<div ng-messages-include="templates/messages.html"></div>
+							</div>
+							<div ng-show="illegalDateTime">
+							<div class="form-error">End date should be after auction's start date</div>
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<timepicker ng-model="$parent.endsTime" show-meridian="false"
+								hour-step="1" minute-step="1" required></timepicker>
+						</div>
+
+					</div>
+				</div>
+				<div class="row">
+					<div ng-controller="MapCtrl">
+						<div class="col-lg-7">
+
+							Current location: {{editItem.location.country}}, {{editItem.location.locationName}}  <br>
+							<div id="map" class="my-map" data-tap-disabled="true"></div>
+						</div>
+
+						<div class="col-lg-4">
+							<div id="radio" ng-repeat="result in results">
+								<label> <input type="radio" ng-model="choice.location"
+									ng-value="result.location" ng-change='newLocation(value)'
+									required>{{result.country}} {{result.location}}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-1">
+					<br>
+						<div ng-show="locationSelected" class="checkbox">
+							<label> <input type="checkbox" ng-model="includeCoords">Include
+								coordinates (optional)
+							</label>
+
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6">
+					<br>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-primary"
+								ng-disabled="!editItemForm.$valid || !locationSelected || illegalDateTime">Submit</button>
+						</div>
+					</div>
+				</div>
+			</form>
+

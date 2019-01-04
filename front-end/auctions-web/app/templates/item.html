@@ -1,0 +1,108 @@
+<div class="row">
+	<div class="col-lg-4">
+		<div style="height: 305px">
+			<carousel interval="myInterval" no-wrap="noWrapSlides"> <slide
+				ng-repeat="photo in item.photos" active="slide.active"> <img
+				ng-src="http://localhost:8080/auctions/items/{{item.itemId}}/photos/{{photo.photoId}}"
+				style="margin: auto;">
+			<div class="carousel-caption">
+				<h4>Photo {{$index}}</h4>
+			</div>
+			</slide> </carousel>
+		</div>
+	</div>
+	<div class="col-lg-8">
+		<h3>{{item.name}}</h3>
+		<div class="row">
+			<div class="col-lg-6">
+				<h5>
+					<strong>Description: </strong> {{item.description}}
+				</h5>
+				<p>
+					<strong>Buy price: </strong> {{item.buyPrice}} Euros
+				</p>
+				<div ng-show=!auctionEnded>
+					<strong>Time left: </strong>
+					<timer max-time-unit="'day'" ng-attr-end-time="item.ends">
+					<span style="color: red">{{days}}d,{{hours}}h, {{minutes}}m,
+						{{seconds}}s </span></timer>
+					( {{item.ends | date:'yyyy-MM-dd HH:mm:ss'}} )
+				</div>
+				<div ng-show=auctionEnded>
+					<p>
+						<strong>Auction ended:</strong> {{item.ends | date:'yyyy-MM-dd
+						HH:mm:ss'}}
+					</p>
+				</div>
+				<br>
+				<p>
+					<span ng-show=auctionEnded><strong>Winning Bid:</strong></span> <span
+						ng-show=!auctionEnded><strong>Current Bid:</strong></span>
+					{{item.currently}} Euros
+				</p>
+				<p>
+					<strong>Seller name: </strong> {{item.seller.firstname}}
+					{{item.seller.lastname}}
+				</p>
+				<p>
+					<strong>Seller rating: </strong> {{item.seller.sellerRating}}
+				</p>
+			</div>
+			<div class="col-lg-6">
+				<div class="panel panel-default" ng-show=!auctionEnded>
+					<div class="panel-heading">Place your bid</div>
+					<div class="panel-body">
+						<form name="newBidForm" novalidate
+							ng-submit="newBidForm.$valid&&saveBid()">
+							<div class="form-group has-feedback">
+								<label>Amount</label> <input type="number" step="0.01"
+									name="amount" class="form-control" ng-model="newBid.amount"
+									id="amount" required min="{{item.currently}}">
+							</div>
+							<div ng-messages="newBidForm.amount.$error" class="form-errors"
+								ng-show="newBidForm.amount.$touched">
+								<div class="form-error" ng-message="min">Bid more than
+									{{item.currently}} euros</div>
+								<div ng-messages-include="templates/messages.html"></div>
+							</div>
+							<button type="submit" class="btn btn-primary"
+								ng-disabled="!newBidForm.$valid">Submit</button>
+						</form>
+					</div>
+					<div class="panel-footer">Bid more than {{item.currently}}
+						Euros</div>
+				</div>
+				<br>
+				<accordion> <accordion-group panel-class="panel-danger"
+					is-open="status.open"> <accordion-heading>
+				<strong> Bids</strong> <i class="pull-right glyphicon"
+					ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+				</accordion-heading>
+				<ul class="list-group">
+					<li class="list-group-item" ng-repeat="bid in item.bids">
+						<h5 class="list-group-item-heading">Amount: {{bid.amount}}</h5>
+						<p>Bidder: {{bid.bidder.username}}</p>
+						<p>Date: {{bid.time | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+					</li>
+				</ul>
+				</accordion-group> </accordion>
+			</div>
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+		<br>
+		<br>
+			<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+			
+			 <ui-gmap-window show="windowOptions.show" coords="marker.coords" isIconVisibleOnClick="false" closeclick="closeClick()" ng-cloak>
+                <div>{{item.location.country}}, {{item.location.locationName}}</div>
+            </ui-gmap-window>
+			<ui-gmap-marker events="marker.markersEvents" coords="marker.coords" idKey="marker.id"></ui-gmap-marker>
+        </ui-gmap-google-map>
+				<br>
+					<br>
+		</div>
+	
+	</div>

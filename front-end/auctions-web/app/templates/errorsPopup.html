@@ -1,0 +1,12 @@
+<div class="modal-header" style="background-color:red;color:#FFFFFF">
+	<h4 class="modal-title">Registration failure</h4>
+</div>
+<div class="modal-body">
+<ul>
+<li ng-repeat="error in errorData">
+    <div class="item-text-wrap">
+{{error.field}} {{error.message}}
+        </div>
+</li>
+</ul>
+</div>

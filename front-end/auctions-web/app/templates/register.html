@@ -1,0 +1,191 @@
+<div class="panel panel-primary center-block" style="max-width: 700px;">
+		<div class="panel-heading">Registration</div>
+		<div class="panel-body" >	 
+		<form name="registerForm" novalidate class="center-block" ng-submit="registerForm.$valid&&saveUser()">
+		<div class="row">		
+		<div class="col-lg-12">
+				<div class="form-group has-feedback">
+					<label class="control-label" for="username">Username</label>
+					<input type="text" name="username" class="form-control" ng-model="user.username" id="username" required ng-maxlength="50">
+					<span class="form-control-feedback glyphicon " aria-hidden="true"></span>
+				</div>
+				<div ng-messages="registerForm.username.$error" class="form-errors" ng-if="registerForm.username.$touched">
+                    <div class="form-error" ng-message="required">Please enter your username</div>
+                    <div class="form-error" ng-message="maxlength">Username should be at most 50 characters</div>
+                    <div ng-messages-include="templates/messages.html">
+                    </div>
+                </div>
+				</div>
+		</div>			
+		<div class="row">
+		<div class="col-lg-6">
+				<div class="form-group has-feedback">
+					<label>Password</label>
+					<input type="password" name="password" class="form-control" ng-model="user.password" id="password" required ng-maxlength="50">
+					<span class="form-control-feedback glyphicon" aria-hidden="true"></span> 
+				</div>
+				 <div ng-messages="registerForm.password.$error" class="form-errors" ng-if="registerForm.password.$touched">
+                    <div class="form-error" ng-message="required">Please enter your Password</div>
+                    <div class="form-error" ng-message="maxlength">Password should be at most 50 characters</div>
+                    <div ng-messages-include="templates/messages.html"></div>
+                </div>
+				
+		</div>		
+		<div class="col-lg-6">		
+				<div class="form-group has-feedback">
+					<label>Repeat Password</label>
+					<input type="password" class="form-control" id="confirmpwd" name="confirmpwd" required ng-maxlength="50" match="user.password" ng-model="confirmpwd">
+					<span class="form-control-feedback glyphicon " aria-hidden="true"></span>
+				</div>
+				<div ng-messages="registerForm.confirmpwd.$error" class="form-errors" ng-if="registerForm.confirmpwd.$touched"  >
+                    <div class="form-error" ng-message="mismatch">Passwords have to match </div>
+                    <div class="form-error" ng-message="maxlength">Password should be at most 50 characters</div>
+                    <div ng-messages-include="templates/messages.html"></div>
+                </div>
+		</div>	
+		</div>
+		<div class="row">
+		<div class="col-lg-6">			
+				<div class="form-group has-feedback">
+					<label>First name</label>
+					<input type="text" name="firstname" class="form-control" ng-model="user.firstname" id="firstname" required ng-maxlength="100">
+					 <span class="form-control-feedback glyphicon " aria-hidden="true"></span>
+				</div>
+				<div ng-messages="registerForm.firstname.$error" class="form-errors" ng-if="registerForm.firstname.$touched" required ng-maxlength="100">
+                    <div class="form-error" ng-message="required">Please enter your first name</div>
+                    <div class="form-error" ng-message="maxlength">First name should be at most 100 characters</div>
+                    <div ng-messages-include="templates/messages.html"></div>
+
+                </div>
+		</div>		
+		<div class="col-lg-6">		
+				<div class="form-group has-feedback">
+					<label>Last name</label>
+					<input type="text" name="lastname" class="form-control" ng-model="user.lastname" id="lastname" required ng-maxlength="100">
+					 <span class="form-control-feedback glyphicon " aria-hidden="true"></span>
+				</div>
+				<div ng-messages="registerForm.lastname.$error" class="form-errors" ng-if="registerForm.lastname.$touched">
+                    <div class="form-error" ng-message="required">Please enter your last name</div>
+                    <div class="form-error" ng-message="maxlength">Last name should be at most 100 characters</div>
+                    <div ng-messages-include="templates/messages.html"></div>
+                </div>
+		</div>
+		</div>
+		<div class="row">
+		<div class="col-lg-12">		
+				<div class="form-group has-feedback">
+					<label>Vat Number</label>
+					<input type="text" name="vatNumber" class="form-control"  ng-model="user.vatNumber" id="vatNumber" required ng-maxlength="80">
+					<span class="form-control-feedback glyphicon " aria-hidden="true"></span>
+				</div>
+				 <div ng-messages="registerForm.vatNumber.$error" class="form-errors" ng-show="registerForm.vatNumber.$touched">
+                    <div class="form-error" ng-message="maxlength">Vat Number should be at most 80 characters</div>
+                    <div class="form-error" ng-message="required">Please enter your Vat Number</div>
+
+                    <div ng-messages-include="templates/messages.html"></div>
+                </div>
+		</div>	
+		</div>	
+		<div class="row">	
+		<div class="col-lg-6">		
+				<div class="form-group has-feedback">
+					<label>Email Address</label>
+					<input type="email" name="email" class="form-control" ng-model="user.email" id="email" required ng-maxlength="80">
+					<span class="form-control-feedback glyphicon " aria-hidden="true"></span>
+				</div>
+				<div ng-messages="registerForm.email.$error" class="form-errors" ng-show="registerForm.email.$touched">
+                    <div class="form-error" ng-message="maxlength">Email should be at most 80 characters</div>
+                    <div class="form-error" ng-message="required">Please enter your Email</div>
+
+                    <div ng-messages-include="templates/messages.html"></div>
+                </div>
+				
+		</div>
+		<div class="col-lg-6">
+				<div class="form-group has-feedback">
+					<label>Phone Number</label> 
+					<input type="text" name="phoneNumber" class="form-control" ng-model="user.phoneNumber" id="phoneNumber" ng-maxlength="30">
+					<span class="form-control-feedback glyphicon " aria-hidden="true"></span>
+				</div>
+				<div ng-messages="registerForm.phoneNumber.$error" class="form-errors" ng-show="registerForm.phoneNumber.$touched">
+                    <div class="form-error" ng-message="maxlength">Phone Number should be at most 30 characters</div>
+                    <div class="form-error" ng-message="required">Please enter your Phone Number</div>
+
+                    <div ng-messages-include="templates/messages.html"></div>
+                </div>
+				
+		</div>
+		</div>	
+			<div class="row">
+			<div class="col-lg-6">	
+				<div class="form-group has-feedback">
+					<label>Country</label>
+					<input type="text" name="country" class="form-control" ng-model="user.country" id="country" required ng-maxlength="100">
+					<span class="form-control-feedback glyphicon " aria-hidden="true"></span>
+				</div>
+				<div ng-messages="registerForm.country.$error" class="form-errors" ng-show="registerForm.country.$touched">
+                    <div class="form-error" ng-message="maxlength">Country should be at most 100 characters</div>
+                    <div class="form-error" ng-message="required">Please enter your Country</div>
+
+                    <div ng-messages-include="templates/messages.html"></div>
+                </div>
+			</div>	
+			<div class="col-lg-6">
+				<div class="form-group has-feedback">
+					<label>Location</label>
+					<input type="text" name="location" class="form-control" ng-model="user.location" id="location" required ng-maxlength="100">
+					<span class="form-control-feedback glyphicon " aria-hidden="true"></span>
+				</div>
+				<div ng-messages="registerForm.location.$error" class="form-errors" ng-show="registerForm.location.$touched">
+                    <div class="form-error" ng-message="maxlength">Location should be at most 100 characters</div>
+                    <div class="form-error" ng-message="required">Please enter your Location</div>
+
+                    <div ng-messages-include="templates/messages.html"></div>
+                </div>
+			</div>	
+			</div>	
+			<div class="row">
+			<div class="col-lg-4">
+				<div class="form-group has-feedback">
+					<label>Street</label>
+					<input type="text" name="street" class="form-control" ng-model="user.street"  id="street" required ng-maxlength="100">
+					<span class="form-control-feedback glyphicon " aria-hidden="true"></span>
+				</div>
+				<div ng-messages="registerForm.street.$error" class="form-errors" ng-show="registerForm.street.$touched">
+                    <div class="form-error" ng-message="maxlength">Street should be at most 100 characters</div>
+                    <div class="form-error" ng-message="required">Please enter your Street</div>
+
+                    <div ng-messages-include="templates/messages.html"></div>
+                </div>
+			</div>
+			<div class="col-lg-4">
+				<div class="form-group has-feedback">
+					<label>Street number</label>
+					<input type="number" name="streetNumber" class="form-control" ng-model="user.streetNumber" id="streetNumber" required>
+				</div>
+				<div ng-messages="registerForm.streetNumber.$error" class="form-errors" ng-show="registerForm.streetNumber.$touched"> 
+                    <div ng-messages-include="templates/messages.html"></div>
+                </div>
+			</div>	
+			<div class="col-lg-4">
+				<div class="form-group has-feedback">
+					<label>Postal code</label>
+					<input type="number" name="postCode" class="form-control" ng-model="user.postCode" id="postCode" required>
+					<span class="form-control-feedback glyphicon " aria-hidden="true"></span>
+				</div>
+				<div ng-messages="registerForm.postCode.$error" class="form-errors" ng-show="registerForm.postCode.$touched">
+                    <div ng-messages-include="templates/messages.html"></div>
+                </div>
+			</div>	
+			</div>	
+			<div class="row">
+			<div class="col-lg-6">
+				<!-- #messages is where the messages are placed inside -->
+		   		 <div class="form-actions">
+			 		 <button type="submit" class="btn btn-primary" ng-disabled="!registerForm.$valid">Register</button>
+				</div>
+				</div>
+			</div>	
+		</form:form>
+		</div>	
+	</div>	 

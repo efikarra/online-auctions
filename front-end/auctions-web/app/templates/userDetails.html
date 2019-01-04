@@ -1,0 +1,27 @@
+<br>
+<div class="well">
+<center>
+<h3>
+	<strong> {{user.firstname}} {{user.lastname}}</strong>
+</h3>
+<br>
+<p>
+	<strong>Username: </strong>{{user.username}} 
+</p>
+<br>
+<p>
+	<strong>Vat number:</strong> {{user.email}}
+</p>
+<br>
+<p>
+	<strong>Email:</strong> {{user.vatNumber}}
+</p>
+<br>
+<p>
+	<strong>Enabled:</strong> {{user.enabled}}
+</p>
+<br>
+<button ng-show="!user.enabled" type="button" class="btn btn-success" ng-click="enableUser()">Enable user</button>
+<button ng-show="user.enabled" type="button" class="btn btn-success" ng-click="disableUser()">Disable user</button>
+</center>
+</div>

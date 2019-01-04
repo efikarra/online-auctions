@@ -1,0 +1,86 @@
+.form-errors {
+	margin: 5px 0
+}
+
+.form-error {
+	padding: 2px 0 2px 16px;
+	color: red;
+}
+
+.nav, .pagination, .carousel, .panel-title a {
+	cursor: pointer;
+}
+
+html, body {
+	height: 100%;
+}
+
+.img-responsive {
+	height: 100%;
+	width: 100%;
+}
+
+.image-container {
+	width: 200px;
+	height: 160px;
+}
+.small-image-container {
+	width: 50px;
+	height: 5px;
+}
+.thumbnail span {
+    margin-right: 10px;
+    display: inline-block;
+}
+.thumbnail span img{
+    width: 200px;
+	height: 160px;
+}
+.angular-google-map-container {
+	height: 300px;
+	width: 600px
+}
+
+.my-map {
+	width: 400px;
+	height: 300px;
+}
+.odd-blue {
+	background-color: #7094FF !important;
+	color: #FFFFFF !important
+}
+
+.even-blue {
+	background-color: #FFFFFF !important;
+}
+
+.odd-light-brown {
+	background-color: #F5EBEB !important;
+}
+
+.even-light-brown {
+	background-color: #F5EBEB !important;
+}
+
+.sidebar-nav .navbar .navbar-collapse {
+	padding: 0;
+	max-height: none;
+}
+
+.sidebar-nav .navbar ul {
+	float: none;
+}
+
+.sidebar-nav .navbar ul:not {
+	display: block;
+}
+
+.sidebar-nav .navbar li {
+	float: none;
+	display: block;
+}
+
+.sidebar-nav .navbar li a {
+	padding-top: 12px;
+	padding-bottom: 12px;
+}
