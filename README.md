@@ -14,6 +14,7 @@ The front-end was written in AngularJS.
 <h2> Deployment instructions</h3>
 
 <h4> Database </h4>
+
 1. Create a user in MySQL with full privileges. 
 Edit the file /back-end/auctions-source/src/main/resources/properties/database.properties to add your user's username and password.
 
@@ -22,7 +23,8 @@ In this way, a database with name "auctions" will be created, containing some sa
 In the sample data, all users have the password "123456", some of the usernames are “jackiebrown”,”sweetsuzie”,”ecworldauctions” and the name of the admin user is “kostis”.
 
 <h4> Server </h4>
-1. Copy the folder /back-end/auctions-photos in the source folder of your machine.
+
+1. Copy the folder /back-end/auctions-photos in the root folder of your machine.
 
 2. Build the project in /back-end/auctions-source by running the command "gradle clean build". A .war file will be created in the directory /back-end/online-auctions⁩/⁨back-end⁩/auctions-source⁩/build⁩/⁨libs⁩.
 Copy this file into the webapps directory of your Apache Tomcat Server (the project has been tested in Apache Tomcat 8).
